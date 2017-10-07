@@ -132,11 +132,12 @@ def Cleanliness(df):
     
     # General cleanliness for each attributes by category in a dataframe format and print it
     Result = pd.DataFrame({'MissingValue':Frac_NAN,'NoiseValue':Frac_Noise})    
-    print(Result)
+    print('\n',Result)
     
     # Equal weight for all the attributes and cleanliness categories, and scale it to a 0-100 range
     Score = 100*(1-(Result.MissingValue.sum()+Result.NoiseValue.sum())/(2*len(Result)))
     print('\nCleanliness Score is',Score)
+
 
 def Cleanliness1(df1):
     # Fraction of missing values of each attribute
@@ -158,16 +159,12 @@ def Cleanliness1(df1):
 
     # General cleanliness for each attributes by category in a dataframe format and print it
     Result1 = pd.DataFrame({'MissingValue':Frac_NAN1,'NoiseValue':Frac_Noise1})
-    print(Result1)
+    print('\n',Result1)
     
     # Equal weight for all the attributes and cleanliness categories, and scale it to a 0-100 range
     Score1 = 100*(1-(Result1.MissingValue.sum()+Result1.NoiseValue.sum())/(2*len(Result1)))
     print('\nCleanliness Score is',Score1)
-
-
-Cleanliness(df)
-Cleanliness1(df1)
-
+    
 # =================================== Data Cleanning =============================  
 # Drop rows with missing values
 DF = df.dropna()
@@ -203,5 +200,43 @@ DF1[['Lower_Payment_Est','Ave_Payment','Higher_Payment_Est']]=DF1[['Lower_Paymen
 DF1[['Start_Date','End_Date']] = DF1[['Start_Date','End_Date']].applymap(lambda x: x[0:10])
 
 
+# =================================== Processing =============================
+with open('Dataset1_Cleaned.csv', 'w') as f:
+    DF.to_csv(f,index=False)
+f.close()
+
+with open('Dataset2_Cleaned.csv', 'w') as f:
+    DF1.to_csv(f,index=False)
+f.close()
+
+with open('Dataset1_Original.csv', 'w') as f:
+    df.to_csv(f,index=False)
+f.close()
+
+with open('Dataset2_Original.csv', 'w') as f:
+    df1.to_csv(f,index=False)
+f.close()
+
+import sys
+orig_stdout = sys.stdout
+f=open('Output.txt', 'w')
+sys.stdout = f
+
+print('\nBefore cleanning:\n')
+Cleanliness(df)
+Cleanliness1(df1)
+
+print('\nAfter cleanning:\n')
+Cleanliness(DF)
+Cleanliness1(DF1)
+    
+sys.stdout = orig_stdout
+f.close()
+
+print('\nBefore cleanning:\n')
+Cleanliness(df)
+Cleanliness1(df1)
+
+print('\nAfter cleanning:\n')
 Cleanliness(DF)
 Cleanliness1(DF1)
