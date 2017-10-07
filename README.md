@@ -1,6 +1,8 @@
 # Project-1
 ANLY501
 
+Fengdi Li, Yifan Wu, Yarou Xu
+
 The 'Dataset1_Original.csv' is the original data of the first dataset before cleanning.
 
 The 'Dataset1_Cleaned.csv' is the first dataset after cleanning.
